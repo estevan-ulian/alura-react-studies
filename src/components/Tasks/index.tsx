@@ -1,32 +1,22 @@
+import useAppData from '../../hooks/useAppData'
 import Task from './Task'
 import style from './Tasks.module.scss'
 
 function Tasks() {
-    const allTasks = [
-        {
-            task: 'react',
-            time: '02:00:00'
-        },
-        {
-            task: 'javascript',
-            time: '01:00:00'
-        },
-        {
-            task: 'typescript',
-            time: '03:00:00'
-        }
-    ]
+
+    const { task } = useAppData()
 
     return (
         <aside className={style.AppStyle}>
             <h2>Estudos do dia</h2>
             <ul>
-                {allTasks.map((item, index) => {
+                {/*  @ts-ignore */}
+                {task.map((item, index) => {
                     return (
                         <Task
                             key={index}
-                            task={item.task}
-                            time={item.time}
+                            task={item.tarefa}
+                            time={item.tempo}
                         />
                     )
                 })}

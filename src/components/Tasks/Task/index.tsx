@@ -1,15 +1,32 @@
-import style from '../Tasks.module.scss'
+import useAppData from '../../../hooks/useAppData'
 
-interface TaskProps {
-    task: string,
-    time: string
-}
+import { TaskProps } from '../../../types/task'
 
-function Task({ task, time }: TaskProps) {
+import style from './Task.module.scss'
+
+function Task({ completed, id, selected, tarefa, tempo }: TaskProps) {
+
+    const { selectTask } = useAppData()
+
     return (
-        <li className={style.item}>
-            <h3>{task}</h3>
-            <span>{time}</span>
+        <li
+            className={`
+                ${style.item} 
+                ${selected ? style.itemselected : ''} 
+                ${completed ? style.itemcompleted : ''}
+            `}
+            onClick={() => (!completed && selectTask({
+                completed,
+                id,
+                selected,
+                tarefa,
+                tempo
+            }))}
+        >
+            <h3>{tarefa}</h3>
+            <span>{tempo}</span>
+            {completed &&
+                <span className={style.concluido} aria-label="tarefa completa"></span>}
         </li>
     )
 }

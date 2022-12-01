@@ -4,6 +4,8 @@ import useAppData from '../../hooks/useAppData'
 import Button from '../Button'
 import style from './Form.module.scss'
 
+import { v4 as uuidv4 } from 'uuid'
+
 function Form() {
     const { setTask } = useAppData()
 
@@ -12,16 +14,20 @@ function Form() {
 
     function addNewTask(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        // @ts-ignore
-        setTask(prev => {
-            return [
-                ...prev,
-                { tempo, tarefa }
-            ]
-        })
+
+        setTask(prev => [
+            ...prev,
+            {
+                tempo,
+                tarefa,
+                selected: false,
+                completed: false,
+                id: uuidv4()
+            }
+        ])
 
         setTarefa('')
-        setTempo('')
+        setTempo('00:00:00')
     }
 
     return (
@@ -34,8 +40,8 @@ function Form() {
                     Adicione um novo estudo
                 </label>
                 <input
-                    name="task"
-                    id="task"
+                    name="taskTimeTime"
+                    id="taskTimeTime"
                     type="text"
                     placeholder="O que você quer estudar?"
                     value={tarefa}
@@ -53,13 +59,13 @@ function Form() {
                     name="time"
                     id="time"
                     min="00:00:00"
-                    max="01:30:00"
+                    max="06:00:00"
                     value={tempo}
                     onChange={(event) => setTempo(event.target.value)}
                     required
                 />
-                <Button type="submit">Adicionar</Button>
             </div>
+            <Button type="submit">Adicionar</Button>
         </form>
     )
 }

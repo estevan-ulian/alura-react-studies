@@ -10,13 +10,16 @@ function Tasks() {
         <aside className={style.AppStyle}>
             <h2>Estudos do dia</h2>
             <ul>
-                {/*  @ts-ignore */}
-                {task.map((item, index) => {
+
+                {task.map((item) => {
                     return (
                         <Task
-                            key={index}
-                            task={item.tarefa}
-                            time={item.tempo}
+                            key={item.id}
+                            tarefa={item.tarefa}
+                            tempo={item.tempo}
+                            selected={item.selected}
+                            completed={item.completed}
+                            id={item.id}
                         />
                     )
                 })}
